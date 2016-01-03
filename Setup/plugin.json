@@ -1,6 +1,6 @@
 {
   "title": "Custom Section",
-  "version": "1.00",
+  "version": "1.01",
   "name": "CustomSection",
   "description": "Widget which allows to define custom section (e.g. predefined markup, such as Callouts). See https://github.com/greybyte/IP-CustomSection for instructions.",
   "author": "Chris Vigelius <me@cv.gd>"

@@ -17,13 +17,18 @@ class BlockWrapper
 		}
 	}
 
+	function val($varname, $default="")
+	{
+		if (array_key_exists($varname, $this->data)) {
+			return $this->data[$varname];
+		} else {
+			return $default;
+		}
+	}
+
 	protected function tag($tagname, $varname, $default="Lorem Ipsum", $class="", $type="Text") {
 		$varname = ($this->num!=-1)?$varname.'-'.$this->num:$varname;
-		if (array_key_exists($varname, $this->data)) {
-			$val = $this->data[$varname];
-		} else {
-			$val = $default;
-		}
+		$val = $this->val($varname, $default);
 		return "<$tagname class=\"ipsEditable $class\" data-type=\"$type\" data-varname=\"$varname\">$val</$tagname>";
 	}
 
@@ -92,7 +97,7 @@ class Controller extends \Ip\WidgetController
 
 		$this->core = false;
 
-		$this->layouts = [];
+		$this->layouts = array();
 
 		// get a list of available custom layouts
 		if (is_dir($this->themeSectionsFolder)) {
@@ -122,7 +127,6 @@ class Controller extends \Ip\WidgetController
 		$data = array('s' => new BlockWrapper($data, $this->themeSectionsFolder));
 		$answer = ipView($view, $data)->render();
 		return $answer;
-		//return parent::generateHtml($revisionId, $widgetId, array('b' => new BlockWrapper($data)), $skin);
 	}
 
 	public function getSkins() {
@@ -176,35 +180,6 @@ class Controller extends \Ip\WidgetController
 			'crop' => $newCrop
 		);
 
-		/*
-		$newData = $currentData;
-
-		if (isset($postData['fileName']) && is_file(ipFile('file/repository/' . $postData['fileName']))) {
-			//unbind old image
-			if (isset($currentData['imageOriginal']) && $currentData['imageOriginal']) {
-				\Ip\Internal\Repository\Model::unbindFile(
-					$currentData['imageOriginal'],
-					'Content',
-					$widgetId
-				);
-			}
-
-			//bind new image
-			\Ip\Internal\Repository\Model::bindFile($postData['fileName'], 'Content', $widgetId);
-
-			$newData['imageOriginal'] = $postData['fileName'];
-		}
-
-		if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2'])) {
-			//new small image
-			$newData['cropX1'] = $postData['cropX1'];
-			$newData['cropY1'] = $postData['cropY1'];
-			$newData['cropX2'] = $postData['cropX2'];
-			$newData['cropY2'] = $postData['cropY2'];
-		}
-		return $newData;
-		*/
-
 		return $currentData;
 	}
 
@@ -233,13 +208,4 @@ class Controller extends \Ip\WidgetController
 		}
 		return $currentData;
 	}
-					/*
-					TODO:
-					  - min/max
-					  - für jeden Blocktyp ein Widget wäre nett (geht das dynamisch? Wie?)
-					  - dann könnte man die Files auch besser organisieren
-					  - Doku wäre sinnvoll
-					  - Editor für Typ Image wäre auch nützlich
-					  - vielleicht kann man das sogar verkaufen?
-					*/
 }

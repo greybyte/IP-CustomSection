@@ -93,8 +93,6 @@ In the containing section, use ```$s->repeat($template, $min=1, $max=-1, $wrapTa
 
 ### Example
 
-
-
 ```php
 # ThemeDir/sections/repeat/Image.php
 <li>
@@ -108,3 +106,10 @@ In the containing section, use ```$s->repeat($template, $min=1, $max=-1, $wrapTa
 
 <?php echo $s->repeat('Image', 1, -1, 'ul', 'gallery'); ?>
 ```
+
+## Retrieve variable value without editor
+
+Sometimes it is necessary to get a variable's value without rendering an editable tag.
+ For that, you can use `$s->val($name, $default="")` which returns only the value without
+ any additional markup.
+ 
