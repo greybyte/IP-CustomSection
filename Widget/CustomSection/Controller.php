@@ -40,7 +40,7 @@ class BlockWrapper
 		return $this->tag($tagname, $varname, $default, $class, 'RichText');
 	}
 
-	function img($varname, $default, $height, $width, $class='', $tagname='img') {
+	function img($varname, $default, $width, $height, $class='', $tagname='img') {
 		$varname = ($this->num!=-1)?$varname.'-'.$this->num:$varname;
 		$defaultval = ipThemeUrl('assets/').$default;
 		if (array_key_exists($varname, $this->data)) {
